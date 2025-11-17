@@ -1,10 +1,9 @@
 #pragma once
-#include <string>
-#include <vector>
+#include "LoggerConsumer.hpp"
 #include <sstream>
-#include <iostream>
+#include <string>
 #include <thread>
-#include <mutex>
+#include <vector>
 
 // --- Thread-local logging context ---
 class LoggingContext
@@ -53,34 +52,20 @@ private:
 	std::string name;
 };
 
-// mutex singleton
-static std::mutex coutMutex;  
-
-// Returns a reference to a mutex that is never destroyed.
-// Safe to use even during static/global destructors.
-inline std::mutex& logCoutMutex()
-{
-	static std::mutex* mtx = new std::mutex(); // never destroyed
-	return *mtx;
-}
-
-// --- Core logger (no consumer yet, prints to stdout) ---
 inline void logMessage(const char* level,
 	const char* file,
 	int line,
 	const std::string& msg)
 {
-	auto lock = std::lock_guard<std::mutex>(logCoutMutex());
+	LogMessage logMsg;
+	logMsg.level = level;
+	logMsg.file = file;
+	logMsg.line = line;
+	logMsg.msg = msg;
+	logMsg.context = tls_context.fullContext();
+	logMsg.threadId = std::this_thread::get_id();
 
-	const auto context = tls_context.fullContext();
-	const auto threadId = std::this_thread::get_id();
-
-	std::cout
-		<< "[" << level << "] "
-		<< "[TID " << threadId << "] "
-		<< (context.empty() ? "" : ("[" + context + "] "))
-		<< msg
-		<< " (" << file << ":" << line << ")\n";
+	getDispatcher().dispatch(logMsg);
 }
 
 // --- Logging macros ---

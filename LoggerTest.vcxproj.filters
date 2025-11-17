@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Headerdateien\logging">
+      <UniqueIdentifier>{75b0abe6-362a-4ffa-a85b-0f4783b797cf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LoggerTest.cpp">
@@ -20,8 +23,17 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Logger.hpp">
-      <Filter>Headerdateien</Filter>
+    <ClInclude Include="logging\ConsoleSink.hpp">
+      <Filter>Headerdateien\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="logging\FileSinkPerContext.hpp">
+      <Filter>Headerdateien\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="logging\Logger.hpp">
+      <Filter>Headerdateien\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="logging\LoggerConsumer.hpp">
+      <Filter>Headerdateien\logging</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

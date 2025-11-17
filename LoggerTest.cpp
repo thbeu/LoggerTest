@@ -1,4 +1,6 @@
-#include "Logger.hpp"
+#include "logging/Logger.hpp"
+#include "logging/ConsoleSink.hpp"
+#include "logging/FileSinkPerContext.hpp"
 #include <thread>
 
 void workerTask(int workerId)
@@ -17,6 +19,13 @@ void workerTask(int workerId)
 
 int main()
 {
+	{
+		// Add console log sink
+		getDispatcher().addSink(std::make_shared<ConsoleSink>());
+		// Add file log sink
+		getDispatcher().addSink(std::make_shared<FileSinkPerContext>("logs"));
+	}
+
 	LogScope mainScope("Main");
 	LOG_INFO("Application started");
 

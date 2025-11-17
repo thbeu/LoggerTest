@@ -158,7 +158,10 @@
     <ClCompile Include="LoggerTest.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Logger.hpp" />
+    <ClInclude Include="logging\ConsoleSink.hpp" />
+    <ClInclude Include="logging\FileSinkPerContext.hpp" />
+    <ClInclude Include="logging\Logger.hpp" />
+    <ClInclude Include="logging\LoggerConsumer.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
